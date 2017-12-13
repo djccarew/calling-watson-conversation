@@ -11,7 +11,7 @@ declared-services:
     plan: lite
 
 applications:
- - name: calling-watson-conversation
+ - name: cwc-nexmo
    random-route: true
    memory: 128M
    services:

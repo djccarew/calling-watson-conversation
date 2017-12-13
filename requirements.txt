@@ -1,0 +1,4 @@
+tornado>=4.4.2
+requests>=2.12.4
+watson-developer-cloud>=1.0.1
+python-dotenv>=0.7.1

@@ -13,6 +13,8 @@ Here’s an overview of how  it all works.
 As shown in the diagram, you link your Nexmo number to an instance of this application that receives the voice data from an  incoming phone call . The app calls Watson Speech to Text to convert the voice data to text and then sends that text as input to a chatbot powered by a Watson Conversation workspace.  The reply from  the chatbot is  then sent to Watson Text to Speech and the resulting voice data is sent back to the caller connected to your virtual number . 
 
 
+## Deploy to IBM Cloud
+[![Deploy to Bluemix](https://metrics-tracker.mybluemix.net/stats/527357940ca5e1027fbf945add3b15c4/button.svg)](https://bluemix.net/deploy?repository=https://github.com/djccarew/calling-watson-conversation.git)
 
 ## Getting Started locally
 

@@ -100,7 +100,7 @@ class MainHandler(tornado.web.RequestHandler):
 		self.write("Watson STT Example")
 		self.finish()
 
-
+# Handler for incoming phone call notification
 class CallHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def get(self):
@@ -114,7 +114,7 @@ class CallHandler(tornado.web.RequestHandler):
         self.set_header("Content-Type", 'application/json; charset="utf-8"')
         self.finish()
 
-
+# Handler for events sent via REST from Nexmo
 class EventHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     def post(self):
@@ -123,7 +123,8 @@ class EventHandler(tornado.web.RequestHandler):
         self.write('ok')
         self.finish()
 			
-
+# Web Socket handler - Nexmo uses web sockets to stream in audio from  a phone call and
+# to receive voice data back .
 class WSHandler(tornado.websocket.WebSocketHandler):
     stt_watson_future = None
     
@@ -134,6 +135,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         self.context = {}
     @gen.coroutine
     def on_message(self, message):
+	# Web socket message from Nexmo 
         stt_watson = yield self.stt_watson_future
         # Binary (ie voice) data is type 'str', text is type 'unicode'
         if type(message) == str:
@@ -163,7 +165,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
         #tts_watson.close()
     @gen.coroutine    
     def on_stt_watson_message(self, message):
-        #THIS IS WHERE TO HANDLE YOUR RESPONSES FROM WATSON Speech to Text
+        # WATSON Speech to Text web socket handler. Receives text trnscription of audio data from Nexmo
         if message is not None:
             #print message
             #print type(message)
@@ -180,7 +182,7 @@ class WSHandler(tornado.websocket.WebSocketHandler):
                         break
    
     def send_audio_to_caller(self, audio):
-        # Sends raw audio back to caller
+        # Sends raw audio back to Nexmo
         # Nexmo requires that outgoing voice data 
         # be sent in 640 byte chunks
         
@@ -201,7 +203,8 @@ class WSHandler(tornado.websocket.WebSocketHandler):
             data = audio[pos:newpos]
             self.write_message(data, binary=True)
             pos = newpos
-
+		
+# Main routine setup handlers and wait for HTTP or Websocket requests
 def main():
     static_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
     application = tornado.web.Application([(r"/", MainHandler),

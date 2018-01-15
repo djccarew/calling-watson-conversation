@@ -1,4 +1,4 @@
-# Calling Watson Conversation - Adding a telephoine voice interface to your chatbot with Discovery 
+# Calling Watson Conversation - Adding a telephone voice interface to your chatbot
 
 This application demonstrates how you can add a telephone voice interface to a chatbot developed  with the [Watson Conversation Service](https://console.bluemix.net/docs/services/conversation/index.html#about). The telephone voice interface is handled by [Nexmo](https://www.nexmo.com/about-nexmo) a third pary service available in the  IBM Cloud . Since the Watson Converation service only recognizes text input and only generates text output,  we also utilize  [Watson Speech to Text service](https://console.bluemix.net/docs/services/speech-to-text/getting-started.html) and [Watson Text to Speech service](https://console.bluemix.net/docs/services/text-to-speech/getting-started.html) to go between the text data needed to interface with the Conversation service and and the voice data needed to interface with Nexmo and the person calling your chatbot.
 
